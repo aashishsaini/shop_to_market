@@ -1,0 +1,20 @@
+<%= label_tag 'Convert to' %>
+<%= select_tag :from_type, options_for_select(CONVERSION_TYPES) , id: 'from_type'%>
+to
+<%= select_tag :to_type, options_for_select(CONVERSION_TYPES) , id: 'to_type'%>
+<br>
+<%= label_tag 'value to convert' %>
+<%= text_field_tag 'value', '' , id: 'value_field'%>
+<br>
+<%= link_to 'convert', '#', id: 'convert' %>
+<div id="result"></div>
+<script>
+    $('#convert').on('click', function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '<%= home_index_path %>',
+            type: 'POST',
+            data: 'from_type=' + $('#from_type').val() + '&to_type=' + $('#to_type').val() + '&value='+ $('#value_field').val()
+        });
+    })
+</script>
